@@ -1,0 +1,14 @@
+//To get into docker container running vp0
+docker exec -it dockercompose_vp0_1 bash
+
+//For User enrollment
+peer network login test_user0 -p MS9qrN8hFjlE
+
+//Deploy chaincode
+peer chaincode deploy -u test_user0 -p https://github.com/pl-amit/OrderTest -c '{"Args": ["init","{\"version\":\"1.0\"}"]}'
+
+//Create Block
+peer chaincode invoke -u test_user0 -n dc2fe18ca5d598e3a2f1d9052b2913d61daa82c6f99eef9e14c7fd8a33514c615cd38dc65de005343c5175759c3edb1f41139eb231ca3e64ccc81cb2497784db -c '{"Args": ["createAsset","{\"AssetID\":\"c123\",\"Health\":\"good\"}"]}'
+
+//Retrive block
+peer chaincode query -u test_user0 -n dc2fe18ca5d598e3a2f1d9052b2913d61daa82c6f99eef9e14c7fd8a33514c615cd38dc65de005343c5175759c3edb1f41139eb231ca3e64ccc81cb2497784db -c '{"Args": ["readAssetHistory","{\"AssetID\":\"c123\"}"]}'
